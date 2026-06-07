@@ -36,6 +36,3 @@ export default function JsonToTS(json: any, userOptions?: Options): string[] {
     getInterfaceStringFromDescription({ ...description, useTypeAlias: options.useTypeAlias })
   );
 }
-
-(<any>JsonToTS).default = JsonToTS;
-module.exports = JsonToTS;
