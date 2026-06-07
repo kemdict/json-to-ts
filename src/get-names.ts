@@ -1,6 +1,6 @@
 import * as pluralize from "pluralize";
 
-import { TypeStructure, NameEntry, NameStructure, TypeDescription } from "./model.ts";
+import type { TypeStructure, NameEntry, NameStructure, TypeDescription } from "./model.ts";
 import { getTypeDescriptionGroup, parseKeyMetaData, findTypeById, isHash } from "./util.ts";
 
 function getName(

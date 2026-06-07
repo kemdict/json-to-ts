@@ -1,8 +1,7 @@
 import * as hash from "hash.js";
 
-import { TypeDescription, TypeStructure } from "./model.ts";
+import type { TypeGroup, TypeDescription, TypeStructure } from "./model.ts";
 import { isHash, getTypeDescriptionGroup, findTypeById, isArray, isObject, onlyUnique, isDate } from "./util.ts";
-import { TypeGroup } from "./model.ts";
 
 function createTypeDescription(typeObj: any | string[], isUnion: boolean): TypeDescription {
   if (isArray(typeObj)) {

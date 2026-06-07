@@ -1,5 +1,5 @@
 import { getTypeStructure, optimizeTypeStructure } from "./get-type-structure.ts";
-import { Options } from "./model.ts";
+import type { Options } from "./model.ts";
 import { getInterfaceDescriptions, getInterfaceStringFromDescription } from "./get-interfaces.ts";
 import { getNames } from "./get-names.ts";
 import { isArray, isObject } from "./util.ts";
