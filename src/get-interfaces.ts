@@ -76,10 +76,13 @@ function replaceTypeObjIdsWithNames(typeObj: { [index: string]: string }, names:
         const newKey = isOptional ? key : `${key}?`; // if already optional dont add question mark
         return [newKey, newType, isOptional];
       })
-      .reduce((agg, [key, value]) => {
-        agg[key] = value;
-        return agg;
-      }, {})
+      .reduce(
+        (agg, [key, value]) => {
+          agg[key] = value;
+          return agg;
+        },
+        {} as Record<string, string>
+      )
   );
 }
 

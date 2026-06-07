@@ -4,11 +4,11 @@ export function isHash(str: string) {
   return str.length === 40;
 }
 
-export function onlyUnique(value, index, self) {
+export function onlyUnique<T>(value: T, index: number, self: T[]) {
   return self.indexOf(value) === index;
 }
 
-export function isArray(x) {
+export function isArray(x: any) {
   return Object.prototype.toString.call(x) === "[object Array]";
 }
 
@@ -18,11 +18,11 @@ export function isNonArrayUnion(typeName: string) {
   return typeName.includes(" | ") && !arrayUnionRegex.test(typeName);
 }
 
-export function isObject(x) {
+export function isObject(x: any) {
   return Object.prototype.toString.call(x) === "[object Object]" && x !== null;
 }
 
-export function isDate(x) {
+export function isDate(x: any) {
   return x instanceof Date;
 }
 
@@ -42,7 +42,7 @@ export function parseKeyMetaData(key: string): KeyMetaData {
   }
 }
 
-export function getTypeDescriptionGroup(desc: TypeDescription): TypeGroup {
+export function getTypeDescriptionGroup(desc: TypeDescription | undefined): TypeGroup {
   if (desc === undefined) {
     return "primitive";
   } else if (desc.arrayOfTypes !== undefined) {
@@ -52,6 +52,6 @@ export function getTypeDescriptionGroup(desc: TypeDescription): TypeGroup {
   }
 }
 
-export function findTypeById(id: string, types: TypeDescription[]): TypeDescription {
+export function findTypeById(id: string, types: TypeDescription[]): TypeDescription | undefined {
   return types.find((_) => _.id === id);
 }

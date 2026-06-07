@@ -17,7 +17,7 @@ export function JsonToTS(json: any, userOptions?: Options): string[] {
    * Parsing currently works with (Objects) and (Array of Objects) not and primitive types and mixed arrays etc..
    * so we shall validate, so we dont start parsing non Object type
    */
-  const isArrayOfObjects = isArray(json) && json.length > 0 && json.reduce((a, b) => a && isObject(b), true);
+  const isArrayOfObjects = isArray(json) && json.length > 0 && json.reduce((a: any, b: any) => a && isObject(b), true);
 
   if (!(isObject(json) || isArrayOfObjects)) {
     throw new Error("Only (Object) and (Array of Object) are supported");

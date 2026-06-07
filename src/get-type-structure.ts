@@ -35,7 +35,7 @@ function Hash(content: string): string {
   return hash.sha1().update(content).digest("hex");
 }
 
-function typeObjectMatchesTypeDesc(typeObj: any | string[], typeDesc: TypeDescription, isUnion): boolean {
+function typeObjectMatchesTypeDesc(typeObj: any | string[], typeDesc: TypeDescription, isUnion: boolean): boolean {
   if (isArray(typeObj)) {
     return arraysContainSameElements(typeObj, typeDesc.arrayOfTypes) && typeDesc.isUnion === isUnion;
   } else {
@@ -110,7 +110,7 @@ function getMergedObjects(typesOfArray: TypeDescription[], types: TypeDescriptio
     return commonKeys.filter((key) => keys.includes(key));
   }, allKeys) as string[];
 
-  const getKeyType = (key) => {
+  const getKeyType = (key: string) => {
     const typesOfKey = typeObjects
       .filter((typeObj) => {
         return Object.keys(typeObj).includes(key);
@@ -166,7 +166,7 @@ function getMergedUnion(typesOfArray: string[], types: TypeDescription[]): strin
     .map((_) => _.arrayOfTypes)
     .reduce((a, b) => [...a, ...b], []);
 
-  const primitiveTypes = typesOfArray.filter((id) => !findTypeById(id, types) || !findTypeById(id, types).isUnion); // primitives or not union
+  const primitiveTypes = typesOfArray.filter((id) => !findTypeById(id, types) || !findTypeById(id, types)?.isUnion); // primitives or not union
   return getIdByType([...innerUnionsTypes, ...primitiveTypes], types, true);
 }
 
@@ -200,7 +200,7 @@ function getInnerArrayType(typesOfArray: string[], types: TypeDescription[]): st
 
   if (typesOfArray.length === 1) {
     // one type in array -> that will be our inner type
-    return typesOfArray.pop();
+    return typesOfArray.pop() as (typeof typesOfArray)[number];
   }
 
   if (typesOfArray.length > 1) {
