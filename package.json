@@ -22,7 +22,6 @@
   },
   "license": "ISC",
   "dependencies": {
-    "es7-shim": "^6.0.0",
     "hash.js": "^1.0.3",
     "pluralize": "^3.1.0"
   },
