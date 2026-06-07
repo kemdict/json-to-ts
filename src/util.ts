@@ -1,4 +1,4 @@
-import { KeyMetaData, TypeGroup, TypeDescription } from "./model";
+import { KeyMetaData, TypeGroup, TypeDescription } from "./model.ts";
 
 export function isHash(str: string) {
   return str.length === 40;

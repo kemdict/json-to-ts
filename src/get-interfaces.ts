@@ -1,5 +1,5 @@
-import { InterfaceDescription, NameEntry, TypeStructure, KeyMetaData } from "./model";
-import { isHash, findTypeById, isNonArrayUnion } from "./util";
+import { InterfaceDescription, NameEntry, TypeStructure, KeyMetaData } from "./model.ts";
+import { isHash, findTypeById, isNonArrayUnion } from "./util.ts";
 
 function isKeyNameValid(keyName: string) {
   const regex = /^[a-zA-Z_][a-zA-Z\d_]*$/;
