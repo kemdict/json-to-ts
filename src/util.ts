@@ -1,6 +1,5 @@
 import type {
   KeyMetaData,
-  TypeGroup,
   TypeDescription,
   TypeDescriptionWithArrayOfTypes,
   TypeGroupWithDescription,
