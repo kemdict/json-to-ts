@@ -1,15 +1,33 @@
-![JSON TO TS](https://image.ibb.co/fTb60k/icon.png)
+# @kemdict/json-to-ts
 
-# Json to TS
+Fork of [MariusAlch/json-to-ts](https://github.com/MariusAlch/json-to-ts).
 
-### Convert json object to typescript interfaces
+Convert json object to typescript interfaces
 
-# Example
+## Why
 
-### Code
+```json
+  "dependencies": {
+    "es7-shim": "^6.0.0",
+    "hash.js": "^1.0.3",
+    "pluralize": "^3.1.0"
+  }
+```
+
+And also to customize to my own use.
+
+Much thanks to the original author, MariusAlch, for making this in the first place. Me complaining about details is easy, but getting a project like this started is the hard part which they have already graciously done.
+
+## Install
+
+```sh
+$ npm install @kemdict/json-to-ts
+```
+
+## Example
 
 ```javascript
-const JsonToTS = require('json-to-ts')
+import JsonToTS from "@kemdict/json-to-ts"
 
 const json = {
   cats: [
@@ -20,12 +38,12 @@ const json = {
   favoriteWord: 'Hello'
 }
 
-JsonToTS(json).forEach( typeInterface => {
+JsonToTS(json).forEach(typeInterface => {
   console.log(typeInterface)
 })
 ```
 
-### Output:
+This prints:
 
 ```typescript
 interface RootObject {
@@ -38,15 +56,13 @@ interface Cat {
 }
 ```
 
-## Converter
-- Array type merging (**Big deal**)
+## Features
+
+Original features:
+
+- Array type merging
 - Union types
 - Duplicate type prevention
 - Optional types
 - Array types
 
-# Setup
-
-```sh
-$ npm install --save json-to-ts
-```

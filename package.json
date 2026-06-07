@@ -1,16 +1,8 @@
 {
-  "name": "json-to-ts",
-  "version": "2.1.0",
+  "name": "@kemdict/json-to-ts",
+  "version": "0.1.0",
   "description": "Convert json object to typescript interfaces",
-  "keywords": [
-    "typescript",
-    "ts",
-    "convert",
-    "json",
-    "util",
-    "lib",
-    "types"
-  ],
+  "keywords": ["typescript", "ts", "convert", "json", "util", "lib", "types"],
   "types": "build/src/index.d.ts",
   "main": "build/src/index.js",
   "scripts": {
@@ -23,10 +15,10 @@
   "author": "https://github.com/mariusalch",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MariusAlch/json-to-ts.git"
+    "url": "https://github.com/kemdict/json-to-ts.git"
   },
   "bugs": {
-    "url": "https://github.com/MariusAlch/json-to-ts/issues"
+    "url": "https://github.com/kemdict/json-to-ts/issues"
   },
   "license": "ISC",
   "dependencies": {
