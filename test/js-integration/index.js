@@ -3,8 +3,7 @@ import { describe, it } from "node:test";
 
 describe("Javascript integration", function () {
   it("should work with dynamic import ", async () => {
-    const JsonToTS = await import("../../dist/index.js");
-
+    const { default: JsonToTS } = await import("../../dist/index.js");
     const expected = `
 interface RootObject {
   cats: Cat[];

@@ -1,4 +1,4 @@
-import * as hash from "hash.js";
+import hash from "hash.js";
 
 import type { TypeGroup, TypeDescription, TypeStructure } from "./model.ts";
 import { isHash, getTypeDescriptionGroup, findTypeById, isArray, isObject, onlyUnique, isDate } from "./util.ts";
@@ -32,7 +32,7 @@ function getIdByType(typeObj: any | string[], types: TypeDescription[], isUnion:
 }
 
 function Hash(content: string): string {
-  return (hash as any).sha1().update(content).digest("hex");
+  return hash.sha1().update(content).digest("hex");
 }
 
 function typeObjectMatchesTypeDesc(typeObj: any | string[], typeDesc: TypeDescription, isUnion): boolean {
