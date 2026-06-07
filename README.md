@@ -27,20 +27,17 @@ $ npm install @kemdict/json-to-ts
 ## Example
 
 ```javascript
-import JsonToTS from "@kemdict/json-to-ts"
+import JsonToTS from "@kemdict/json-to-ts";
 
 const json = {
-  cats: [
-    {name: 'Kittin'},
-    {name: 'Mittin'}
-  ],
+  cats: [{ name: "Kittin" }, { name: "Mittin" }],
   favoriteNumber: 42,
-  favoriteWord: 'Hello'
-}
+  favoriteWord: "Hello",
+};
 
-JsonToTS(json).forEach(typeInterface => {
-  console.log(typeInterface)
-})
+JsonToTS(json).forEach((typeInterface) => {
+  console.log(typeInterface);
+});
 ```
 
 This prints:
@@ -65,4 +62,3 @@ Original features:
 - Duplicate type prevention
 - Optional types
 - Array types
-
