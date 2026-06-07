@@ -7,7 +7,7 @@
   "types": "build/src/index.d.ts",
   "main": "build/src/index.js",
   "scripts": {
-    "build": "rm -rf ./dist && tsc",
+    "build": "rm -rf ./dist && tsc -p tsconfig-build.json",
     "start": "node --watch src/index.ts",
     "test": "npm run build && node --test",
     "test-reload": "node --test --watch"
