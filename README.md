@@ -7,11 +7,11 @@ Convert json object to typescript interfaces
 ## Why
 
 ```json
-  "dependencies": {
-    "es7-shim": "^6.0.0",
-    "hash.js": "^1.0.3",
-    "pluralize": "^3.1.0"
-  }
+"dependencies": {
+  "es7-shim": "^6.0.0",
+  "hash.js": "^1.0.3",
+  "pluralize": "^3.1.0"
+}
 ```
 
 And also to customize to my own use.
