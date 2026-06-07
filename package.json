@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Convert json object to typescript interfaces",
   "keywords": ["typescript", "ts", "convert", "json", "util", "lib", "types"],
+  "type": "module",
   "types": "build/src/index.d.ts",
   "main": "build/src/index.js",
   "scripts": {
