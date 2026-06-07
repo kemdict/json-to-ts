@@ -1,6 +1,12 @@
 import pluralize from "pluralize";
 
-import type { TypeStructure, NameEntry, NameStructure, TypeDescription } from "./model.ts";
+import type {
+  TypeStructure,
+  NameEntry,
+  NameStructure,
+  TypeDescription,
+  TypeDescriptionWithArrayOfTypes,
+} from "./model.ts";
 import { getTypeDescriptionGroup, parseKeyMetaData, findTypeById, isHash } from "./util.ts";
 
 function getName(
@@ -11,9 +17,10 @@ function getName(
 ): NameStructure {
   const typeDesc = types.find((_) => _.id === rootTypeId);
 
-  switch (getTypeDescriptionGroup(typeDesc)) {
+  const { group, desc } = getTypeDescriptionGroup(typeDesc);
+  switch (group) {
     case "array":
-      typeDesc.arrayOfTypes.forEach((typeIdOrPrimitive, i) => {
+      desc.arrayOfTypes.forEach((typeIdOrPrimitive, i) => {
         getName(
           { rootTypeId: typeIdOrPrimitive, types },
           // to differenttiate array types
@@ -23,16 +30,16 @@ function getName(
         );
       });
       return {
-        rootName: getNameById(typeDesc.id, keyName, isInsideArray, types, names),
+        rootName: getNameById(desc.id, keyName, isInsideArray, types, names),
         names,
       };
 
     case "object":
-      Object.entries(typeDesc.typeObj).forEach(([key, value]) => {
+      Object.entries(desc.typeObj).forEach(([key, value]) => {
         getName({ rootTypeId: value, types }, key, names, false);
       });
       return {
-        rootName: getNameById(typeDesc.id, keyName, isInsideArray, types, names),
+        rootName: getNameById(typeDesc!.id, keyName, isInsideArray, types, names),
         names,
       };
 
@@ -42,6 +49,9 @@ function getName(
         rootName: rootTypeId,
         names,
       };
+
+    default:
+      throw new Error("impossible");
   }
 }
 
@@ -63,12 +73,11 @@ function getNameById(
   }
 
   const typeDesc = findTypeById(id, types);
-  const group = getTypeDescriptionGroup(typeDesc);
   let name;
-
+  const { group, desc } = getTypeDescriptionGroup(typeDesc);
   switch (group) {
     case "array":
-      name = typeDesc.isUnion ? getArrayName(typeDesc, types, nameMap) : formatArrayName(typeDesc, types, nameMap);
+      name = desc.isUnion ? getArrayName(desc, types, nameMap) : formatArrayName(desc, types, nameMap);
       break;
 
     case "object":
@@ -92,6 +101,7 @@ function getNameById(
       break;
   }
 
+  if (name === undefined) throw new Error("Failed to get name");
   nameMap.push({ id, name });
   return name;
 }
@@ -125,9 +135,14 @@ function uniqueByIncrement(name: string, names: string[]): string {
       return nameProposal;
     }
   }
+  throw new Error("Failed to propose new name");
 }
 
-function getArrayName(typeDesc: TypeDescription, types: TypeDescription[], nameMap: NameEntry[]): string {
+function getArrayName(
+  typeDesc: TypeDescriptionWithArrayOfTypes,
+  types: TypeDescription[],
+  nameMap: NameEntry[]
+): string {
   if (typeDesc.arrayOfTypes.length === 0) {
     return "any";
   } else if (typeDesc.arrayOfTypes.length === 1) {
@@ -141,24 +156,32 @@ function getArrayName(typeDesc: TypeDescription, types: TypeDescription[], nameM
 function convertToReadableType(idOrPrimitive: string, types: TypeDescription[], nameMap: NameEntry[]): string {
   return isHash(idOrPrimitive)
     ? // array keyName makes no difference in picking name for type
-      getNameById(idOrPrimitive, null, true, types, nameMap)
+      getNameById(idOrPrimitive, "", true, types, nameMap)
     : idOrPrimitive;
 }
 
-function unionToString(typeDesc: TypeDescription, types: TypeDescription[], nameMap: NameEntry[]): string {
+function unionToString(
+  typeDesc: TypeDescriptionWithArrayOfTypes,
+  types: TypeDescription[],
+  nameMap: NameEntry[]
+): string {
   return typeDesc.arrayOfTypes.reduce((acc, type, i) => {
     const readableTypeName = convertToReadableType(type, types, nameMap);
     return i === 0 ? readableTypeName : `${acc} | ${readableTypeName}`;
   }, "");
 }
 
-function formatArrayName(typeDesc: TypeDescription, types: TypeDescription[], nameMap: NameEntry[]): string {
+function formatArrayName(
+  typeDesc: TypeDescriptionWithArrayOfTypes,
+  types: TypeDescription[],
+  nameMap: NameEntry[]
+): string {
   const innerTypeId = typeDesc.arrayOfTypes[0];
   // const isMultipleTypeArray = findTypeById(innerTypeId, types).arrayOfTypes.length > 1
   const isMultipleTypeArray =
     isHash(innerTypeId) &&
-    findTypeById(innerTypeId, types).isUnion &&
-    findTypeById(innerTypeId, types).arrayOfTypes.length > 1;
+    findTypeById(innerTypeId, types)?.isUnion &&
+    (findTypeById(innerTypeId, types)?.arrayOfTypes?.length ?? 0) > 1;
 
   const readableInnerType = getArrayName(typeDesc, types, nameMap);
 

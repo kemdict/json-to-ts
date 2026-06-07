@@ -1,10 +1,25 @@
 export type TypeGroup = "primitive" | "array" | "object" | "date";
 
+export type TypeGroupWithDescription =
+  | {
+      group: "primitive";
+      desc: undefined;
+    }
+  | { group: "array"; desc: TypeDescriptionWithArrayOfTypes }
+  | { group: "object"; desc: TypeDescriptionWithTypeObj };
+
 export interface TypeDescription {
   id: string;
   isUnion?: boolean;
   typeObj?: { [index: string]: string };
   arrayOfTypes?: string[];
+}
+
+export interface TypeDescriptionWithArrayOfTypes extends TypeDescription {
+  arrayOfTypes: string[];
+}
+export interface TypeDescriptionWithTypeObj extends TypeDescription {
+  typeObj: { [index: string]: string };
 }
 
 export interface TypeStructure {

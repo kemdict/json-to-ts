@@ -108,7 +108,7 @@ export function getInterfaceDescriptions(typeStructure: TypeStructure, names: Na
     .map(({ id, name }) => {
       const typeDescription = findTypeById(id, typeStructure.types);
 
-      if (typeDescription.typeObj) {
+      if (typeDescription?.typeObj) {
         const typeMap = replaceTypeObjIdsWithNames(typeDescription.typeObj, names);
         return { name, typeMap };
       } else {

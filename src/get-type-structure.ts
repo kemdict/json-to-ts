@@ -37,7 +37,7 @@ function Hash(content: string): string {
 
 function typeObjectMatchesTypeDesc(typeObj: any | string[], typeDesc: TypeDescription, isUnion: boolean): boolean {
   if (isArray(typeObj)) {
-    return arraysContainSameElements(typeObj, typeDesc.arrayOfTypes) && typeDesc.isUnion === isUnion;
+    return arraysContainSameElements(typeObj, typeDesc.arrayOfTypes!) && typeDesc.isUnion === isUnion;
   } else {
     return objectsHaveSameEntries(typeObj, typeDesc.typeObj);
   }
@@ -101,21 +101,21 @@ function getMergedObjects(typesOfArray: TypeDescription[], types: TypeDescriptio
   const typeObjects = typesOfArray.map((typeDesc) => typeDesc.typeObj);
 
   const allKeys = typeObjects
-    .map((typeObj) => Object.keys(typeObj))
+    .map((typeObj) => Object.keys(typeObj!))
     .reduce((a, b) => [...a, ...b], [])
     .filter(onlyUnique);
 
   const commonKeys = typeObjects.reduce((commonKeys: string[], typeObj) => {
-    const keys = Object.keys(typeObj);
+    const keys = Object.keys(typeObj!);
     return commonKeys.filter((key) => keys.includes(key));
   }, allKeys) as string[];
 
   const getKeyType = (key: string) => {
     const typesOfKey = typeObjects
       .filter((typeObj) => {
-        return Object.keys(typeObj).includes(key);
+        return Object.keys(typeObj!).includes(key);
       })
-      .map((typeObj) => typeObj[key])
+      .map((typeObj) => typeObj![key])
       .filter(onlyUnique);
 
     if (typesOfKey.length === 1) {
@@ -145,7 +145,7 @@ function toOptionalKey(key: string): string {
 
 function getMergedArrays(typesOfArray: TypeDescription[], types: TypeDescription[]): string {
   const idsOfArrayTypes = typesOfArray
-    .map((typeDesc) => typeDesc.arrayOfTypes)
+    .map((typeDesc) => typeDesc.arrayOfTypes!)
     .reduce((a, b) => [...a, ...b], [])
     .filter(onlyUnique);
 
@@ -163,7 +163,7 @@ function getMergedUnion(typesOfArray: string[], types: TypeDescription[]): strin
       return findTypeById(id, types);
     })
     .filter((_) => !!_ && _.isUnion)
-    .map((_) => _.arrayOfTypes)
+    .map((_) => _!.arrayOfTypes!)
     .reduce((a, b) => [...a, ...b], []);
 
   const primitiveTypes = typesOfArray.filter((id) => !findTypeById(id, types) || !findTypeById(id, types)?.isUnion); // primitives or not union
@@ -178,19 +178,19 @@ function getInnerArrayType(typesOfArray: string[], types: TypeDescription[]): st
   const arrayTypesDescriptions = typesOfArray.map((id) => findTypeById(id, types)).filter((_) => !!_);
 
   const allArrayType =
-    arrayTypesDescriptions.filter((typeDesc) => getTypeDescriptionGroup(typeDesc) === "array").length ===
+    arrayTypesDescriptions.filter((typeDesc) => getTypeDescriptionGroup(typeDesc).group === "array").length ===
     typesOfArray.length;
 
   const allArrayTypeWithUndefined =
-    arrayTypesDescriptions.filter((typeDesc) => getTypeDescriptionGroup(typeDesc) === "array").length + 1 ===
+    arrayTypesDescriptions.filter((typeDesc) => getTypeDescriptionGroup(typeDesc).group === "array").length + 1 ===
       typesOfArray.length && containsUndefined;
 
   const allObjectTypeWithUndefined =
-    arrayTypesDescriptions.filter((typeDesc) => getTypeDescriptionGroup(typeDesc) === "object").length + 1 ===
+    arrayTypesDescriptions.filter((typeDesc) => getTypeDescriptionGroup(typeDesc).group === "object").length + 1 ===
       typesOfArray.length && containsUndefined;
 
   const allObjectType =
-    arrayTypesDescriptions.filter((typeDesc) => getTypeDescriptionGroup(typeDesc) === "object").length ===
+    arrayTypesDescriptions.filter((typeDesc) => getTypeDescriptionGroup(typeDesc).group === "object").length ===
     typesOfArray.length;
 
   if (typesOfArray.length === 0) {
@@ -223,6 +223,7 @@ function getInnerArrayType(typesOfArray: string[], types: TypeDescription[]): st
     // if they are mixed or all primitive we cant merge them so we return as mixed union type
     return getMergedUnion(typesOfArray, types);
   }
+  throw new Error("Failed to get inner array type");
 }
 
 export function getTypeStructure(
@@ -265,40 +266,43 @@ export function getTypeStructure(
   }
 }
 
-function getAllUsedTypeIds({ rootTypeId, types }: TypeStructure): string[] {
+function getAllUsedTypeIds({ rootTypeId, types }: TypeStructure): string[] | undefined {
   const typeDesc = types.find((_) => _.id === rootTypeId);
 
-  const subTypes = (typeDesc: TypeDescription) => {
-    switch (getTypeDescriptionGroup(typeDesc)) {
+  function subTypes(typeDesc: TypeDescription | undefined): string[] | undefined {
+    const { group, desc } = getTypeDescriptionGroup(typeDesc);
+    switch (group) {
       case "array":
-        const arrSubTypes = typeDesc.arrayOfTypes
+        const arrSubTypes = desc.arrayOfTypes
           .filter(isHash)
           .map((typeId) => {
             const typeDesc = types.find((_) => _.id === typeId);
             return subTypes(typeDesc);
           })
-          .reduce((a, b) => [...a, ...b], []);
-        return [typeDesc.id, ...arrSubTypes];
+          .reduce((a, b) => [...a!, ...b!], []);
+        return [desc.id, ...arrSubTypes!];
 
       case "object":
-        const objSubTypes = Object.values(typeDesc.typeObj)
+        const objSubTypes = Object.values(desc.typeObj)
           .filter(isHash)
           .map((typeId) => {
             const typeDesc = types.find((_) => _.id === typeId);
             return subTypes(typeDesc);
           })
-          .reduce((a, b) => [...a, ...b], []);
-        return [typeDesc.id, ...objSubTypes];
+          .reduce((a, b) => [...a!, ...b!], []);
+        return [desc.id, ...objSubTypes!];
     }
-  };
+  }
 
-  return subTypes(typeDesc);
+  const result = subTypes(typeDesc);
+  if (!result) throw new Error("Failed to get all used type Ids");
+  return result;
 }
 
 export function optimizeTypeStructure(typeStructure: TypeStructure) {
   const usedTypeIds = getAllUsedTypeIds(typeStructure);
 
-  const optimizedTypes = typeStructure.types.filter((typeDesc) => usedTypeIds.includes(typeDesc.id));
+  const optimizedTypes = typeStructure.types.filter((typeDesc) => usedTypeIds?.includes(typeDesc.id));
 
   typeStructure.types = optimizedTypes;
 }

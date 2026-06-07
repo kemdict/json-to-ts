@@ -1,4 +1,11 @@
-import type { KeyMetaData, TypeGroup, TypeDescription } from "./model.ts";
+import type {
+  KeyMetaData,
+  TypeGroup,
+  TypeDescription,
+  TypeDescriptionWithArrayOfTypes,
+  TypeGroupWithDescription,
+  TypeDescriptionWithTypeObj,
+} from "./model.ts";
 
 export function isHash(str: string) {
   return str.length === 40;
@@ -42,13 +49,13 @@ export function parseKeyMetaData(key: string): KeyMetaData {
   }
 }
 
-export function getTypeDescriptionGroup(desc: TypeDescription | undefined): TypeGroup {
+export function getTypeDescriptionGroup(desc: TypeDescription | undefined): TypeGroupWithDescription {
   if (desc === undefined) {
-    return "primitive";
+    return { group: "primitive", desc };
   } else if (desc.arrayOfTypes !== undefined) {
-    return "array";
+    return { group: "array", desc: desc as TypeDescriptionWithArrayOfTypes };
   } else {
-    return "object";
+    return { group: "object", desc: desc as TypeDescriptionWithTypeObj };
   }
 }
 
