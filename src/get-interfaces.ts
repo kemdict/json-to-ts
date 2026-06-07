@@ -23,7 +23,9 @@ function parseKeyMetaData(key: string): KeyMetaData {
 }
 
 function findNameById(id: string, names: NameEntry[]): string {
-  return names.find((_) => _.id === id).name;
+  const foundName = names.find((_) => _.id === id);
+  if (!foundName) throw new Error("Name not found");
+  return foundName.name;
 }
 
 function removeUndefinedFromUnion(unionTypeName: string) {
