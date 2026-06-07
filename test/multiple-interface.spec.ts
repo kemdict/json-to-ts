@@ -1,7 +1,7 @@
 import * as assert from "node:assert";
 import { describe, it } from "node:test";
-import { removeWhiteSpace } from "./util/index";
-import JsonToTS from "../src/index";
+import { removeWhiteSpace } from "./util/index.ts";
+import JsonToTS from "../src/index.ts";
 
 describe("Multiple interfaces", function () {
   it("should create separate interface for nested objects", function () {

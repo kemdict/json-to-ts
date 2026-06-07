@@ -1,7 +1,7 @@
 import * as assert from "node:assert";
 import { describe, it } from "node:test";
-import { removeWhiteSpace } from "./util/index";
-import JsonToTS from "../src/index";
+import { removeWhiteSpace } from "./util/index.ts";
+import JsonToTS from "../src/index.ts";
 
 describe("Single interface", function () {
   it("should work with empty objects", function () {
@@ -12,6 +12,7 @@ describe("Single interface", function () {
       }
     `;
     const actual = JsonToTS(json).pop();
+    assert.ok(actual);
     const [a, b] = [expected, actual].map(removeWhiteSpace);
     assert.strictEqual(a, b);
   });
@@ -27,6 +28,7 @@ describe("Single interface", function () {
       }
     `;
     const actual = JsonToTS(json).pop();
+    assert.ok(actual);
     const [a, b] = [expected, actual].map(removeWhiteSpace);
     assert.strictEqual(a, b);
   });
