@@ -44,11 +44,11 @@ export function parseKeyMetaData(key: string): KeyMetaData {
 
 export function getTypeDescriptionGroup(desc: TypeDescription): TypeGroup {
   if (desc === undefined) {
-    return TypeGroup.Primitive;
+    return "primitive";
   } else if (desc.arrayOfTypes !== undefined) {
-    return TypeGroup.Array;
+    return "array";
   } else {
-    return TypeGroup.Object;
+    return "object";
   }
 }
 

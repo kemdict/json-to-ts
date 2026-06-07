@@ -1,6 +1,6 @@
 import * as pluralize from "pluralize";
 
-import { TypeStructure, NameEntry, NameStructure, TypeGroup, TypeDescription } from "./model.ts";
+import { TypeStructure, NameEntry, NameStructure, TypeDescription } from "./model.ts";
 import { getTypeDescriptionGroup, parseKeyMetaData, findTypeById, isHash } from "./util.ts";
 
 function getName(
@@ -12,7 +12,7 @@ function getName(
   const typeDesc = types.find((_) => _.id === rootTypeId);
 
   switch (getTypeDescriptionGroup(typeDesc)) {
-    case TypeGroup.Array:
+    case "array":
       typeDesc.arrayOfTypes.forEach((typeIdOrPrimitive, i) => {
         getName(
           { rootTypeId: typeIdOrPrimitive, types },
@@ -27,7 +27,7 @@ function getName(
         names,
       };
 
-    case TypeGroup.Object:
+    case "object":
       Object.entries(typeDesc.typeObj).forEach(([key, value]) => {
         getName({ rootTypeId: value, types }, key, names, false);
       });
@@ -36,7 +36,7 @@ function getName(
         names,
       };
 
-    case TypeGroup.Primitive:
+    case "primitive":
       // in this case rootTypeId is primitive type string (string, null, number, boolean)
       return {
         rootName: rootTypeId,
@@ -67,11 +67,11 @@ function getNameById(
   let name;
 
   switch (group) {
-    case TypeGroup.Array:
+    case "array":
       name = typeDesc.isUnion ? getArrayName(typeDesc, types, nameMap) : formatArrayName(typeDesc, types, nameMap);
       break;
 
-    case TypeGroup.Object:
+    case "object":
       /**
        * picking name for type in array requires to singularize that type name,
        * and if not then no need to singularize

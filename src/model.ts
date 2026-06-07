@@ -1,9 +1,4 @@
-export enum TypeGroup {
-  Primitive,
-  Array,
-  Object,
-  Date,
-}
+export type TypeGroup = "primitive" | "array" | "object" | "date";
 
 export interface TypeDescription {
   id: string;
