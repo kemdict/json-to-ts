@@ -2,8 +2,14 @@ import * as assert from "node:assert";
 import { describe, it } from "node:test";
 
 describe("Javascript integration", function () {
+  it("should have both default and named exports", async () => {
+    const { JsonToTS, default: JsonToTSDefault } = await import("../../dist/index.js");
+    assert.ok(JsonToTS);
+    assert.ok(JsonToTSDefault);
+  });
+
   it("should work with dynamic import ", async () => {
-    const { default: JsonToTS } = await import("../../dist/index.js");
+    const { JsonToTS } = await import("../../dist/index.js");
     const expected = `
 interface RootObject {
   cats: Cat[];

@@ -4,7 +4,7 @@ import { getInterfaceDescriptions, getInterfaceStringFromDescription } from "./g
 import { getNames } from "./get-names.ts";
 import { isArray, isObject } from "./util.ts";
 
-export default function JsonToTS(json: any, userOptions?: Options): string[] {
+export function JsonToTS(json: any, userOptions?: Options): string[] {
   const defaultOptions: Options = {
     rootName: "RootObject",
   };
@@ -36,3 +36,5 @@ export default function JsonToTS(json: any, userOptions?: Options): string[] {
     getInterfaceStringFromDescription({ ...description, useTypeAlias: options.useTypeAlias })
   );
 }
+
+export default JsonToTS;

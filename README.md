@@ -55,6 +55,10 @@ interface Cat {
 
 ## Features
 
+Changes:
+
+- ESM with both default export and named export
+
 Original features:
 
 - Array type merging
