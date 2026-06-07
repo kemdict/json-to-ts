@@ -1,4 +1,5 @@
-import * as assert from "assert";
+import * as assert from "node:assert";
+import { describe, it } from "node:test";
 import { removeWhiteSpace } from "./util/index";
 import JsonToTS from "../src/index";
 
@@ -21,7 +22,7 @@ describe("Multiple interfaces", function () {
 
     JsonToTS(json).forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 
@@ -48,10 +49,10 @@ describe("Multiple interfaces", function () {
     const interfaces = JsonToTS(json);
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
-    assert(interfaces.length === 2);
+    assert.ok(interfaces.length === 2);
   });
 
   it("should have multi keyword interfaces created without space", function () {
@@ -72,7 +73,7 @@ describe("Multiple interfaces", function () {
 
     const interfaces = JsonToTS(json);
     interfaces.forEach((typeInterface) => {
-      assert(expectedTypes.includes(typeInterface));
+      assert.ok(expectedTypes.includes(typeInterface));
     });
   });
 
@@ -106,7 +107,7 @@ describe("Multiple interfaces", function () {
     const interfaces = JsonToTS(json);
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 
@@ -129,7 +130,7 @@ describe("Multiple interfaces", function () {
 
     JsonToTS(json).forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 
@@ -150,7 +151,7 @@ describe("Multiple interfaces", function () {
     const interfaces = JsonToTS(json);
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 
@@ -173,7 +174,7 @@ describe("Multiple interfaces", function () {
     const interfaces = JsonToTS(json);
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 
@@ -193,7 +194,7 @@ describe("Multiple interfaces", function () {
     const interfaces = JsonToTS(json);
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 
@@ -229,7 +230,7 @@ describe("Multiple interfaces", function () {
     const interfaces = JsonToTS(json);
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 
@@ -252,7 +253,7 @@ describe("Multiple interfaces", function () {
     const interfaces = JsonToTS(json);
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 
@@ -276,7 +277,7 @@ describe("Multiple interfaces", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 
@@ -300,7 +301,7 @@ describe("Multiple interfaces", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 
@@ -324,7 +325,7 @@ describe("Multiple interfaces", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 
@@ -341,7 +342,7 @@ describe("Multiple interfaces", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 
@@ -360,7 +361,7 @@ describe("Multiple interfaces", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 
@@ -377,7 +378,7 @@ describe("Multiple interfaces", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
   });
 });

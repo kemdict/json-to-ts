@@ -1,8 +1,9 @@
-const assert = require("assert");
+import * as assert from "node:assert";
+import { describe, it } from "node:test";
 
 describe("Javascript integration", function () {
-  it("should work with default require statement", function () {
-    const JsonToTS = require("../../build/src/index");
+  it("should work with dynamic import ", async () => {
+    const JsonToTS = await import("../../build/src/index");
 
     const expected = `
 interface RootObject {

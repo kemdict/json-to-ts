@@ -1,4 +1,5 @@
-import * as assert from "assert";
+import * as assert from "node:assert";
+import { describe, it } from "node:test";
 import { removeWhiteSpace } from "./util/index";
 import JsonToTS from "../src/index";
 
@@ -21,7 +22,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 2);
@@ -40,7 +41,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 1);
@@ -58,7 +59,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 1);
@@ -79,7 +80,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 1);
@@ -114,7 +115,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 1);
@@ -145,7 +146,7 @@ describe("Array type merging", function () {
     const interfaces = JsonToTS(json);
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 2);
@@ -170,7 +171,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 2);
@@ -195,7 +196,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 2);
@@ -219,7 +220,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 2);
@@ -245,7 +246,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 2);
@@ -301,7 +302,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 4);
@@ -347,7 +348,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 2);
@@ -373,7 +374,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 1);
@@ -402,7 +403,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 2);
@@ -428,7 +429,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 1);
@@ -454,7 +455,7 @@ describe("Array type merging", function () {
 
     interfaces.forEach((i) => {
       const noWhiteSpaceInterface = removeWhiteSpace(i);
-      assert(expectedTypes.includes(noWhiteSpaceInterface));
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
     });
 
     assert.strictEqual(interfaces.length, 1);
