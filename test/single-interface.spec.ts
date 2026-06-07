@@ -44,6 +44,7 @@ describe("Single interface", function () {
       }
     `;
     const actual = JsonToTS(json).pop();
+    assert.ok(actual);
     const [a, b] = [expected, actual].map(removeWhiteSpace);
     assert.strictEqual(a, b);
   });
@@ -59,6 +60,7 @@ describe("Single interface", function () {
       }
     `;
     const actual = JsonToTS(json).pop();
+    assert.ok(actual);
     const [a, b] = [expected, actual].map(removeWhiteSpace);
     assert.strictEqual(a, b);
   });
@@ -73,6 +75,7 @@ interface RootObject {
   'hello world': number;
 }`;
     const actual = JsonToTS(json).pop();
+    assert.ok(actual);
     assert.strictEqual(expected.trim(), actual.trim());
   });
 
@@ -86,6 +89,7 @@ interface RootObject {
   'hello world'?: any;
 }`;
     const actual = JsonToTS(json).pop();
+    assert.ok(actual);
     assert.strictEqual(expected.trim(), actual.trim());
   });
 
@@ -104,6 +108,7 @@ interface RootObject {
       }
     `;
     const interfaceStr = JsonToTS(json).pop();
+    assert.ok(interfaceStr);
     const [expect, actual] = [expected, interfaceStr].map(removeWhiteSpace);
     assert.strictEqual(expect, actual);
   });
@@ -123,6 +128,7 @@ interface RootObject {
       }
     `;
     const interfaceStr = JsonToTS(json).pop();
+    assert.ok(interfaceStr);
     const [expect, actual] = [expected, interfaceStr].map(removeWhiteSpace);
     assert.strictEqual(expect, actual);
   });
@@ -138,6 +144,7 @@ interface RootObject {
       }
     `;
     const actual = JsonToTS(json).pop();
+    assert.ok(actual);
     const [a, b] = [expected, actual].map(removeWhiteSpace);
     assert.strictEqual(a, b);
   });
@@ -150,6 +157,7 @@ interface RootObject {
       }
     `;
     const actual = JsonToTS(json).pop();
+    assert.ok(actual);
     const [a, b] = [expected, actual].map(removeWhiteSpace);
     assert.strictEqual(a, b);
   });
@@ -165,6 +173,7 @@ interface RootObject {
       }
     `;
     const actual = JsonToTS(json).pop();
+    assert.ok(actual);
     const [a, b] = [expected, actual].map(removeWhiteSpace);
     assert.strictEqual(a, b);
   });
