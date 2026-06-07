@@ -232,7 +232,7 @@ export function getTypeStructure(
 ): TypeStructure {
   switch (getTypeGroup(targetObj)) {
     case TypeGroup.Array:
-      const typesOfArray = (<any[]>targetObj).map((_) => getTypeStructure(_, types).rootTypeId).filter(onlyUnique);
+      const typesOfArray = (targetObj as any[]).map((_) => getTypeStructure(_, types).rootTypeId).filter(onlyUnique);
       const arrayInnerTypeId = getInnerArrayType(typesOfArray, types); // create "union type of array types"
       const typeId = getIdByType([arrayInnerTypeId], types); // create type "array of union type"
 
