@@ -43,8 +43,9 @@ export interface InterfaceDescription {
 }
 
 export interface Options {
+  /** The name of the generated root type */
   rootName?: string;
-  /** To generate using type alias instead of interface */
+  /** Whether to generate `type Foo = { ... }` instead of interface */
   useTypeAlias?: boolean;
 }
 

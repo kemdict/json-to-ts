@@ -16,7 +16,23 @@ Convert json object to typescript interfaces
 
 And also to customize to my own use.
 
-Much thanks to the original author, MariusAlch, for making this in the first place. Me complaining about details is easy, but getting a project like this started is the hard part which they have already graciously done.
+Much thanks to the original author, MariusAlch, for making this in the first
+place. Me complaining about details is easy, but getting a project like this
+started is the hard part which they have already graciously done.
+
+## Features
+
+Changes:
+
+- ESM with both default export and named export
+
+Original features:
+
+- Array type merging
+- Union types
+- Duplicate type prevention
+- Optional types
+- Array types
 
 ## Install
 
@@ -27,7 +43,7 @@ $ npm install @kemdict/json-to-ts
 ## Example
 
 ```javascript
-import JsonToTS from "@kemdict/json-to-ts";
+import { JsonToTS } from "@kemdict/json-to-ts";
 
 const json = {
   cats: [{ name: "Kittin" }, { name: "Mittin" }],
@@ -53,16 +69,16 @@ interface Cat {
 }
 ```
 
-## Features
+## Options
 
-Changes:
-
-- ESM with both default export and named export
-
-Original features:
-
-- Array type merging
-- Union types
-- Duplicate type prevention
-- Optional types
-- Array types
+```typescript
+import { JsonToTS } from "@kemdict/json-to-ts";
+const value = [{"a": 3}, {"b": 4}]
+JsonToTS(value, {
+  // The name of the generated root type
+  rootName: "RootObject",
+  // Whether to use `type Foo = { ... }` instead.
+  // Default (false) is to use `interface Foo { ... }`.
+  useTypeAlias: false
+})
+```
