@@ -25,6 +25,7 @@ started is the hard part which they have already graciously done.
 - ESM with both default export and named export
 - Far less dependencies (from +106 to +2, mostly from removing es7-shim)
 - Requires a Node-compatible runtime (for `hash` from `node:crypto`). (I decided against [`window.crypto.subtle.digest`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest) since it's async.)
+- Add a prefix to the generated names (the user is responsible for specifying a prefix that is legal in an identifier though)
 
 ## Features
 
@@ -81,6 +82,8 @@ JsonToTS(value, {
   rootName: "RootObject",
   // Whether to use `type Foo = { ... }` instead.
   // Default (false) is to use `interface Foo { ... }`.
-  useTypeAlias: false
+  useTypeAlias: false,
+  // Add this prefix to names of the types being generated
+  prefix: "Hello"
 })
 ```

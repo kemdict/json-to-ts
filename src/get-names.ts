@@ -13,7 +13,8 @@ function getName(
   { rootTypeId, types }: TypeStructure,
   keyName: string,
   names: NameEntry[],
-  isInsideArray: boolean
+  isInsideArray: boolean,
+  prefix: string | undefined
 ): NameStructure {
   const typeDesc = types.find((_) => _.id === rootTypeId);
 
@@ -26,20 +27,21 @@ function getName(
           // to differenttiate array types
           i === 0 ? keyName : `${keyName}${i + 1}`,
           names,
-          true
+          true,
+          prefix
         );
       });
       return {
-        rootName: getNameById(desc.id, keyName, isInsideArray, types, names),
+        rootName: getNameById(desc.id, keyName, isInsideArray, types, names, prefix),
         names,
       };
 
     case "object":
       Object.entries(desc.typeObj).forEach(([key, value]) => {
-        getName({ rootTypeId: value, types }, key, names, false);
+        getName({ rootTypeId: value, types }, key, names, false, prefix);
       });
       return {
-        rootName: getNameById(typeDesc!.id, keyName, isInsideArray, types, names),
+        rootName: getNameById(typeDesc!.id, keyName, isInsideArray, types, names, prefix),
         names,
       };
 
@@ -55,8 +57,12 @@ function getName(
   }
 }
 
-export function getNames(typeStructure: TypeStructure, rootName: string = "RootObject"): NameEntry[] {
-  return getName(typeStructure, rootName, [], false).names.reverse();
+export function getNames(
+  typeStructure: TypeStructure,
+  rootName: string = "RootObject",
+  prefix: string | undefined
+): NameEntry[] {
+  return getName(typeStructure, rootName, [], false, prefix).names.reverse();
 }
 
 function getNameById(
@@ -64,7 +70,8 @@ function getNameById(
   keyName: string,
   isInsideArray: boolean,
   types: TypeDescription[],
-  nameMap: NameEntry[]
+  nameMap: NameEntry[],
+  prefix: string | undefined
 ): string {
   let nameEntry = nameMap.find((_) => _.id === id);
 
@@ -77,7 +84,7 @@ function getNameById(
   const { group, desc } = getTypeDescriptionGroup(typeDesc);
   switch (group) {
     case "array":
-      name = desc.isUnion ? getArrayName(desc, types, nameMap) : formatArrayName(desc, types, nameMap);
+      name = desc.isUnion ? getArrayName(desc, types, nameMap, prefix) : formatArrayName(desc, types, nameMap, prefix);
       break;
 
     case "object":
@@ -102,6 +109,7 @@ function getNameById(
   }
 
   if (name === undefined) throw new Error("Failed to get name");
+  if (prefix) name = prefix + name;
   nameMap.push({ id, name });
   return name;
 }
@@ -141,32 +149,39 @@ function uniqueByIncrement(name: string, names: string[]): string {
 function getArrayName(
   typeDesc: TypeDescriptionWithArrayOfTypes,
   types: TypeDescription[],
-  nameMap: NameEntry[]
+  nameMap: NameEntry[],
+  prefix: string | undefined
 ): string {
   if (typeDesc.arrayOfTypes.length === 0) {
     return "any";
   } else if (typeDesc.arrayOfTypes.length === 1) {
     const [idOrPrimitive] = typeDesc.arrayOfTypes;
-    return convertToReadableType(idOrPrimitive, types, nameMap);
+    return convertToReadableType(idOrPrimitive, types, nameMap, prefix);
   } else {
-    return unionToString(typeDesc, types, nameMap);
+    return unionToString(typeDesc, types, nameMap, prefix);
   }
 }
 
-function convertToReadableType(idOrPrimitive: string, types: TypeDescription[], nameMap: NameEntry[]): string {
+function convertToReadableType(
+  idOrPrimitive: string,
+  types: TypeDescription[],
+  nameMap: NameEntry[],
+  prefix: string | undefined
+): string {
   return isHash(idOrPrimitive)
     ? // array keyName makes no difference in picking name for type
-      getNameById(idOrPrimitive, "", true, types, nameMap)
+      getNameById(idOrPrimitive, "", true, types, nameMap, prefix)
     : idOrPrimitive;
 }
 
 function unionToString(
   typeDesc: TypeDescriptionWithArrayOfTypes,
   types: TypeDescription[],
-  nameMap: NameEntry[]
+  nameMap: NameEntry[],
+  prefix: string | undefined
 ): string {
   return typeDesc.arrayOfTypes.reduce((acc, type, i) => {
-    const readableTypeName = convertToReadableType(type, types, nameMap);
+    const readableTypeName = convertToReadableType(type, types, nameMap, prefix);
     return i === 0 ? readableTypeName : `${acc} | ${readableTypeName}`;
   }, "");
 }
@@ -174,7 +189,8 @@ function unionToString(
 function formatArrayName(
   typeDesc: TypeDescriptionWithArrayOfTypes,
   types: TypeDescription[],
-  nameMap: NameEntry[]
+  nameMap: NameEntry[],
+  prefix: string | undefined
 ): string {
   const innerTypeId = typeDesc.arrayOfTypes[0];
   // const isMultipleTypeArray = findTypeById(innerTypeId, types).arrayOfTypes.length > 1
@@ -183,7 +199,7 @@ function formatArrayName(
     findTypeById(innerTypeId, types)?.isUnion &&
     (findTypeById(innerTypeId, types)?.arrayOfTypes?.length ?? 0) > 1;
 
-  const readableInnerType = getArrayName(typeDesc, types, nameMap);
+  const readableInnerType = getArrayName(typeDesc, types, nameMap, prefix);
 
   return isMultipleTypeArray
     ? `(${readableInnerType})[]` // add semicolons for union type

@@ -45,6 +45,9 @@ export interface InterfaceDescription {
 export interface Options {
   /** The name of the generated root type */
   rootName?: string;
+  /** A prefix added before all types generated, including the root type
+   *  (TODO it shouldn't) */
+  prefix?: string;
   /** Whether to generate `type Foo = { ... }` instead of interface */
   useTypeAlias?: boolean;
 }
