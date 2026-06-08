@@ -2,23 +2,20 @@
   "name": "@kemdict/json-to-ts",
   "version": "0.1.0",
   "description": "Convert json object to typescript interfaces",
-  "keywords": [
-    "typescript",
-    "ts",
-    "convert",
-    "json",
-    "util",
-    "lib",
-    "types"
-  ],
+  "keywords": ["typescript", "ts", "convert", "json", "util", "lib", "types"],
   "type": "module",
-  "types": "build/src/index.d.ts",
-  "main": "build/src/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["src", "tsconfig.json", "dist", "README.md", "LICENSE", "package.json"],
   "scripts": {
     "build": "rm -rf ./dist && tsc -p tsconfig-build.json",
-    "start": "node --watch src/index.ts",
-    "test": "npm run build && node --test",
-    "test-reload": "node --test --watch"
+    "test": "npm run build && node --test"
   },
   "author": "https://github.com/mariusalch",
   "repository": {
