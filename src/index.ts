@@ -1,17 +1,16 @@
 import { getTypeStructure, optimizeTypeStructure } from "./get-type-structure.ts";
-import type { Options } from "./model.ts";
+import type { Options, State } from "./model.ts";
 import { getInterfaceDescriptions, getInterfaceStringFromDescription } from "./get-interfaces.ts";
 import { getNames } from "./get-names.ts";
 import { isArray, isObject } from "./util.ts";
 
-export function JsonToTS(json: any, userOptions?: Options): string[] {
-  const defaultOptions: Options = {
-    rootName: "RootObject",
-  };
-  const options = {
-    ...defaultOptions,
-    ...userOptions,
-  };
+export function JsonToTS(json: any, options?: Options): string[] {
+  const state = {
+    keyName: options?.rootName ?? "RootObject",
+    prefix: options?.prefix ?? "",
+    export: !!options?.export,
+    useTypeAlias: !!options?.useTypeAlias,
+  } satisfies State;
 
   /**
    * Parsing currently works with (Objects) and (Array of Objects) not and primitive types and mixed arrays etc..
@@ -30,10 +29,10 @@ export function JsonToTS(json: any, userOptions?: Options): string[] {
    */
   optimizeTypeStructure(typeStructure);
 
-  const names = getNames(typeStructure, options.rootName, options.prefix);
+  const names = getNames(typeStructure, state);
 
   return getInterfaceDescriptions(typeStructure, names).map((description) =>
-    getInterfaceStringFromDescription({ ...description, options })
+    getInterfaceStringFromDescription({ ...description, state })
   );
 }
 

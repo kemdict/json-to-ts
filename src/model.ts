@@ -54,6 +54,13 @@ export interface Options {
   useTypeAlias?: boolean;
 }
 
+export interface State {
+  keyName: string;
+  prefix: string;
+  export: boolean;
+  useTypeAlias: boolean;
+}
+
 export interface KeyMetaData {
   keyValue: string;
   isOptional: boolean;
