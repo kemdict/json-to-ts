@@ -96,7 +96,7 @@ export function getInterfaceStringFromDescription({
     .reduce((a, b) => (a += b), "");
 
   const useTypeAlias = state.useTypeAlias;
-  const exportKeyword = state.export && name === state.prefix + state.keyName ? "export " : "";
+  const exportKeyword = state.export && name === state.keyName ? "export " : "";
   const declarationKeyWord = useTypeAlias ? "type" : "interface";
   let result = `${exportKeyword}${declarationKeyWord} ${name}${useTypeAlias ? " =" : ""} {\n`;
   result += stringTypeMap;

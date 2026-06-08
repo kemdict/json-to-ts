@@ -45,9 +45,6 @@ export interface InterfaceDescription {
 export interface Options {
   /** The name of the generated root type */
   rootName?: string;
-  /** A prefix added before all types generated, including the root type
-   *  (TODO it shouldn't) */
-  prefix?: string;
   /** Whether to export the root type. */
   export?: boolean;
   /** Whether to generate `type Foo = { ... }` instead of interface */
@@ -56,7 +53,6 @@ export interface Options {
 
 export interface State {
   keyName: string;
-  prefix: string;
   export: boolean;
   useTypeAlias: boolean;
 }

@@ -106,7 +106,6 @@ function getNameById(
   }
 
   if (name === undefined) throw new Error("Failed to get name");
-  if (state.prefix) name = state.prefix + name;
   nameMap.push({ id, name });
   return name;
 }

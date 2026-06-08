@@ -7,7 +7,6 @@ import { isArray, isObject } from "./util.ts";
 export function JsonToTS(json: any, options?: Options): string[] {
   const state = {
     keyName: options?.rootName ?? "RootObject",
-    prefix: options?.prefix ?? "",
     export: !!options?.export,
     useTypeAlias: !!options?.useTypeAlias,
   } satisfies State;

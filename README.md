@@ -24,8 +24,10 @@ started is the hard part which they have already graciously done.
 
 - ESM with both default export and named export
 - Far less dependencies (from +106 to +2, mostly from removing es7-shim)
-- Requires a Node-compatible runtime (for `hash` from `node:crypto`). (I decided against [`window.crypto.subtle.digest`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest) since it's async.)
-- Add a prefix to the generated names (the user is responsible for specifying a prefix that is legal in an identifier though)
+- Requires a Node-compatible runtime (for `hash` from `node:crypto`). (I decided
+  against
+  [`window.crypto.subtle.digest`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest)
+  since it's async.)
 
 ## Features
 
@@ -40,7 +42,6 @@ Original features:
 Features in this version:
 
 - Export the root object automatically in the output
-- Add a prefix to generated names
 
 ## Install
 
@@ -81,7 +82,7 @@ interface Cat {
 
 ```typescript
 import { JsonToTS } from "@kemdict/json-to-ts";
-const value = [{"a": 3}, {"b": 4}]
+const value = [{ "a": 3 }, { "b": 4 }];
 JsonToTS(value, {
   // The name of the generated root type
   rootName: "RootObject",
@@ -90,7 +91,5 @@ JsonToTS(value, {
   useTypeAlias: false,
   // Whether to export the root type
   export: false,
-  // Add this prefix to names of the types being generated
-  prefix: "Hello"
-})
+});
 ```
