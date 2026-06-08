@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      hash.js:
-        specifier: ^1.0.3
-        version: 1.1.7
       pluralize:
         specifier: ^3.1.0
         version: 3.1.0
@@ -33,15 +30,6 @@ packages:
   '@types/pluralize@0.0.27':
     resolution: {integrity: sha512-+lR8ro9Z9kxv4khmcWUiNy1bBgBXHGORCOEwQKP4MC+KLAJBrIqin8sJticU3uTVWP3qXE7po4+5oStAFdYKqA==}
 
-  hash.js@1.1.7:
-    resolution: {integrity: sha512-taOaskGt4z4SOANNseOviYDvjEJinIkRgmp7LbKP2YTTmVxWBl87s/uzK9r+44BclBSp2X7K1hqeNfz9JbBeXA==}
-
-  inherits@2.0.4:
-    resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
-
-  minimalistic-assert@1.0.1:
-    resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==}
-
   pluralize@3.1.0:
     resolution: {integrity: sha512-2wcybwjwXOzGI1rlxWtlcs0/nSYK0OzNPqsg35TKxJFQlGhFu3cZ1x7EHS4r4bubQlhzyF4YxxlJqQnIhkUQCw==}
 
@@ -60,15 +48,6 @@ snapshots:
       undici-types: 7.24.6
 
   '@types/pluralize@0.0.27': {}
-
-  hash.js@1.1.7:
-    dependencies:
-      inherits: 2.0.4
-      minimalistic-assert: 1.0.1
-
-  inherits@2.0.4: {}
-
-  minimalistic-assert@1.0.1: {}
 
   pluralize@3.1.0: {}
 

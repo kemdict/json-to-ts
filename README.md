@@ -20,11 +20,13 @@ Much thanks to the original author, MariusAlch, for making this in the first
 place. Me complaining about details is easy, but getting a project like this
 started is the hard part which they have already graciously done.
 
-## Features
-
-Changes:
+## Changes from original
 
 - ESM with both default export and named export
+- Far less dependencies (from +106 to +2, mostly from removing es7-shim)
+- Requires a Node-compatible runtime (for `hash` from `node:crypto`). (I decided against [`window.crypto.subtle.digest`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest) since it's async.)
+
+## Features
 
 Original features:
 
