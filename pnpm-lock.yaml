@@ -9,15 +9,15 @@ importers:
   .:
     dependencies:
       pluralize:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^8.0.0
+        version: 8.0.0
     devDependencies:
       '@types/node':
         specifier: ^25.9.2
         version: 25.9.2
       '@types/pluralize':
-        specifier: ^0.0.27
-        version: 0.0.27
+        specifier: ^0.0.33
+        version: 0.0.33
       typescript:
         specifier: ^6.0.0
         version: 6.0.3
@@ -27,11 +27,12 @@ packages:
   '@types/node@25.9.2':
     resolution: {integrity: sha512-G05zqtJhcDLb8uslf5EjCxXg9G1KQxiV8OS0R26IC//Eoyitzqe8z37I7cqvnZlrlSfgocQRfSn/AHBZJJFyGw==}
 
-  '@types/pluralize@0.0.27':
-    resolution: {integrity: sha512-+lR8ro9Z9kxv4khmcWUiNy1bBgBXHGORCOEwQKP4MC+KLAJBrIqin8sJticU3uTVWP3qXE7po4+5oStAFdYKqA==}
+  '@types/pluralize@0.0.33':
+    resolution: {integrity: sha512-JOqsl+ZoCpP4e8TDke9W79FDcSgPAR0l6pixx2JHkhnRjvShyYiAYw2LVsnA7K08Y6DeOnaU6ujmENO4os/cYg==}
 
-  pluralize@3.1.0:
-    resolution: {integrity: sha512-2wcybwjwXOzGI1rlxWtlcs0/nSYK0OzNPqsg35TKxJFQlGhFu3cZ1x7EHS4r4bubQlhzyF4YxxlJqQnIhkUQCw==}
+  pluralize@8.0.0:
+    resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
+    engines: {node: '>=4'}
 
   typescript@6.0.3:
     resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
@@ -47,9 +48,9 @@ snapshots:
     dependencies:
       undici-types: 7.24.6
 
-  '@types/pluralize@0.0.27': {}
+  '@types/pluralize@0.0.33': {}
 
-  pluralize@3.1.0: {}
+  pluralize@8.0.0: {}
 
   typescript@6.0.3: {}
 
