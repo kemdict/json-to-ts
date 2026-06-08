@@ -102,7 +102,7 @@ function getNameById(
       name = [state.keyName]
         .map((key) => parseKeyMetaData(key).keyValue)
         .map((name) => {
-          if (isInsideArray && state.lvl > 0) {
+          if (isInsideArray && state.lvl > 1) {
             return pluralize.singular(name);
           }
           return name;

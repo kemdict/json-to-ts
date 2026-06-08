@@ -83,4 +83,42 @@ describe("Root array type", function () {
     });
     assert.equal(interfaces.length, 1);
   });
+
+  it("should export when specified", function () {
+    const json = [{ marius: "marius" }, { darius: "darius" }];
+
+    const expectedTypes = [
+      `export interface RootObject {
+        marius?: string;
+        darius?: string;
+      }`,
+    ].map(removeWhiteSpace);
+
+    const interfaces = JsonToTS(json, { export: true });
+
+    interfaces.forEach((i) => {
+      const noWhiteSpaceInterface = removeWhiteSpace(i);
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
+    });
+    assert.equal(interfaces.length, 1);
+  });
+
+  it("should export even if root name is different", function () {
+    const json = [{ marius: "marius" }, { darius: "darius" }];
+
+    const expectedTypes = [
+      `export interface Foos {
+        marius?: string;
+        darius?: string;
+      }`,
+    ].map(removeWhiteSpace);
+
+    const interfaces = JsonToTS(json, { rootName: "Foos", export: true });
+
+    interfaces.forEach((i) => {
+      const noWhiteSpaceInterface = removeWhiteSpace(i);
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
+    });
+    assert.equal(interfaces.length, 1);
+  });
 });
