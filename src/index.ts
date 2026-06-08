@@ -33,7 +33,7 @@ export function JsonToTS(json: any, userOptions?: Options): string[] {
   const names = getNames(typeStructure, options.rootName, options.prefix);
 
   return getInterfaceDescriptions(typeStructure, names).map((description) =>
-    getInterfaceStringFromDescription({ ...description, useTypeAlias: options.useTypeAlias })
+    getInterfaceStringFromDescription({ ...description, options })
   );
 }
 

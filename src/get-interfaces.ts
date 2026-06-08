@@ -1,5 +1,5 @@
 import { isHash, findTypeById, isNonArrayUnion } from "./util.ts";
-import type { InterfaceDescription, NameEntry, TypeStructure, KeyMetaData } from "./model.ts";
+import type { InterfaceDescription, NameEntry, TypeStructure, KeyMetaData, Options } from "./model.ts";
 
 function isKeyNameValid(keyName: string) {
   const regex = /^[a-zA-Z_][a-zA-Z\d_]*$/;
@@ -89,18 +89,20 @@ function replaceTypeObjIdsWithNames(typeObj: { [index: string]: string }, names:
 export function getInterfaceStringFromDescription({
   name,
   typeMap,
-  useTypeAlias,
-}: InterfaceDescription & { useTypeAlias?: boolean }): string {
+  options,
+}: InterfaceDescription & { options: Options }): string {
   const stringTypeMap = Object.entries(typeMap)
     .map(([key, name]) => `  ${key}: ${name};\n`)
     .reduce((a, b) => (a += b), "");
 
+  const useTypeAlias = options.useTypeAlias;
+  const exportKeyword = options.export && name === options.rootName ? "export " : "";
   const declarationKeyWord = useTypeAlias ? "type" : "interface";
-  let interfaceString = `${declarationKeyWord} ${name}${useTypeAlias ? " =" : ""} {\n`;
-  interfaceString += stringTypeMap;
-  interfaceString += "}";
+  let result = `${exportKeyword}${declarationKeyWord} ${name}${useTypeAlias ? " =" : ""} {\n`;
+  result += stringTypeMap;
+  result += "}";
 
-  return interfaceString;
+  return result;
 }
 
 export function getInterfaceDescriptions(typeStructure: TypeStructure, names: NameEntry[]): InterfaceDescription[] {

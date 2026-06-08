@@ -37,6 +37,11 @@ Original features:
 - Optional types
 - Array types
 
+Features in this version:
+
+- Export the root object automatically in the output
+- Add a prefix to generated names
+
 ## Install
 
 ```sh
@@ -83,6 +88,8 @@ JsonToTS(value, {
   // Whether to use `type Foo = { ... }` instead.
   // Default (false) is to use `interface Foo { ... }`.
   useTypeAlias: false,
+  // Whether to export the root type
+  export: false,
   // Add this prefix to names of the types being generated
   prefix: "Hello"
 })
