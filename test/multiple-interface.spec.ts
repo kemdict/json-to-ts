@@ -178,6 +178,29 @@ describe("Multiple interfaces", function () {
     });
   });
 
+  it("should not singularize root key", function () {
+    const json = {
+      whatever: 3,
+      cats: [{ name: "a" }, { name: "b" }],
+    };
+
+    const expectedTypes = [
+      `interface Props {
+        whatever: number;
+        cats: Cat[];
+      }`,
+      `interface Cat {
+        name: string;
+      }`,
+    ].map(removeWhiteSpace);
+
+    const interfaces = JsonToTS(json, { rootName: "Props" });
+    interfaces.forEach((i) => {
+      const noWhiteSpaceInterface = removeWhiteSpace(i);
+      assert.ok(expectedTypes.includes(noWhiteSpaceInterface));
+    });
+  });
+
   it("should capitalize interface names", function () {
     const json = {
       cat: {},

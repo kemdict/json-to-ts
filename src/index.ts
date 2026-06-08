@@ -9,6 +9,7 @@ export function JsonToTS(json: any, options?: Options): string[] {
     keyName: options?.rootName ?? "RootObject",
     export: !!options?.export,
     useTypeAlias: !!options?.useTypeAlias,
+    lvl: 0,
   } satisfies State;
 
   /**

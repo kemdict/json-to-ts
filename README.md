@@ -42,6 +42,7 @@ Original features:
 Features in this version:
 
 - Export the root object automatically in the output
+- Root object will not be singularized
 
 ## Install
 

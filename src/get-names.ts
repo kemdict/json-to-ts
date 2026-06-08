@@ -27,6 +27,7 @@ function getName(
           // to differenttiate array types
           {
             ...state,
+            lvl: state.lvl + 1,
             keyName: i === 0 ? state.keyName : `${state.keyName}${i + 1}`,
           },
           names,
@@ -40,7 +41,16 @@ function getName(
 
     case "object":
       Object.entries(desc.typeObj).forEach(([key, value]) => {
-        getName({ rootTypeId: value, types }, { ...state, keyName: key }, names, false);
+        getName(
+          { rootTypeId: value, types },
+          {
+            ...state,
+            lvl: state.lvl + 1,
+            keyName: key,
+          },
+          names,
+          false
+        );
       });
       return {
         rootName: getNameById(typeDesc!.id, state, isInsideArray, types, names),
@@ -91,7 +101,12 @@ function getNameById(
        */
       name = [state.keyName]
         .map((key) => parseKeyMetaData(key).keyValue)
-        .map((name) => (isInsideArray ? pluralize.singular(name) : name))
+        .map((name) => {
+          if (isInsideArray && state.lvl > 0) {
+            return pluralize.singular(name);
+          }
+          return name;
+        })
         .map(pascalCase)
         .map(normalizeInvalidTypeName)
         .map(pascalCase) // needed because removed symbols might leave first character uncapitalized

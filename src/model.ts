@@ -55,6 +55,8 @@ export interface State {
   keyName: string;
   export: boolean;
   useTypeAlias: boolean;
+  // Nested level (0+ integer), used to make sure we don't singularize the root object
+  lvl: number;
 }
 
 export interface KeyMetaData {
