@@ -1,7 +1,7 @@
 {
   "name": "@kemdict/json-to-ts",
   "description": "Convert json object to typescript interfaces",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "https://github.com/mariusalch",
   "contributors": ["https://github.com/mariusalch", "Kisaragi Hiu <mail@kisaragi-hiu.com>"],
   "maintainers": ["Kisaragi Hiu <mail@kisaragi-hiu.com>"],
